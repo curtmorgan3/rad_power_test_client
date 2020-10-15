@@ -1,42 +1,51 @@
 import axios from 'axios';
 const baseUrl = 'http://127.0.0.1:3001';
-const token = localStorage.getItem('');
 
 export default class Ajax {
 
-  static async login(body) {
+  static async authenticate(body) {
     try {
-      const res = await axios.post(`${baseUrl}/users/login`, body);
+      const res = await axios.post(`${baseUrl}/authenticate`, body);
 
-      return res.data;
+      return res.data && res.data.token ? res.data.token : null;
     } catch(e) {
-      console.error(e);
       return null;
     }
   }
 
-  static async createUser(body) {
+  static async getEntries(body) {
     try {
-      const res = await axios.post(`${baseUrl}/users/`, body);
+      const token = localStorage.getItem('rad_power_test_token');
 
-      return res.data;
-    } catch(e) {
-      console.error(e);
-      return null;
-    }
-  }
+      const query = `
+        query getEntries($serialNumber: String!) {
+          entries(serials: $serialNumber) {
+              model
+              manufacturedMonth
+              manufacturedYear
+              modelYear
+              version
+              assemblyPlant
+              unique
+          }
+        }`;
+      const variables = {
+        serialNumber: body
+      }
 
-  static async getCurrentUser() {
-    try {
-      const res = await axios(`${baseUrl}/users/current-user`, {
+      const res = await axios.post(`${baseUrl}/graphql`, { query, variables }, {
         headers: {
           Authorization: `Bearer ${token}`
         }
       });
 
-      return res.data;
+      return res.data && 
+        res.data.data && 
+        res.data.data.entries 
+          ? res.data.data.entries 
+          : null;
+      
     } catch(e) {
-      console.error(e);
       return null;
     }
   }

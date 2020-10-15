@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import theme from './theme';
@@ -8,9 +8,13 @@ import NotFound from './Components/Helpers/NotFound';
 
 // Views
 import Index from './Views/Index';
+import Query from './Views/Query';
+import Results from './Views/Results';
+import Create from './Views/Create';
 // End Views
 
 // Components
+import Navbar from './Components/Navbar';
 // End Components
 
 function App({ store }) {
@@ -20,8 +24,13 @@ function App({ store }) {
         <Provider store={store}>
           <Router>
             <ScrollToTop>
+              <Navbar />
+
               <Switch>
                 <Route exact path='/' component={Index} />
+                <Route exact path='/query' component={Query} />
+                <Route exact path='/results' component={Results} />
+                <Route exact path='/create' component={Create} />
 
                 <Route component={NotFound} />
               </Switch>

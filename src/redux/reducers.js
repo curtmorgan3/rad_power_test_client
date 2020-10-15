@@ -1,17 +1,32 @@
 import update from 'immutability-helper';
-import { SET_CURRENT_USER } from './actions';
+import { SET_BIKE_RESULTS, SET_AUTH_TOKEN } from './actions';
 import { combineReducers } from 'redux';
 
-const initialUserState = {
-  currentUser: {},
-  collection: []
+const initialAuthState = {
+  token: null
+}
+
+const initialBikeState = {
+  results: []
 };
 
-const userReducer = (state = initialUserState, action) => {
+const authReducer = (state = initialAuthState, action) => {
   switch(action.type) {
-    case SET_CURRENT_USER:
+    case SET_AUTH_TOKEN:
       return update(state, {
-        currentUser: {$set: action.payload}
+        token: {$set: action.payload}
+      });
+      
+    default:
+      return state;
+  };
+};
+
+const bikeReducer = (state = initialBikeState, action) => {
+  switch(action.type) {
+    case SET_BIKE_RESULTS:
+      return update(state, {
+        results: {$set: action.payload}
       });
       
     default:
@@ -20,7 +35,8 @@ const userReducer = (state = initialUserState, action) => {
 };
 
 const allReducers = combineReducers({
-  user: userReducer,
+  bikes: bikeReducer,
+  auth: authReducer,
 });
 
 export default allReducers;

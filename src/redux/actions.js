@@ -1,7 +1,12 @@
 // Action Types
-export const SET_CURRENT_USER = 'SET_CURRENT_USER';
+export const SET_BIKE_RESULTS = 'SET_BIKE_RESULTS';
+export const SET_AUTH_TOKEN = 'SET_AUTH_TOKEN';
 
 // Actions
-export function setCurrentUser(payload) {
-  return { type: SET_CURRENT_USER, payload };
+export function setBikeResults(payload) {
+  return { type: SET_BIKE_RESULTS, payload };
+};
+
+export function setAuthToken(payload) {
+  return { type: SET_AUTH_TOKEN, payload };
 };
