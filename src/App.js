@@ -1,25 +1,35 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { MuiThemeProvider } from '@material-ui/core/styles';
+import theme from './theme';
+import ScrollToTop from './Components/Helpers/ScrollToTop';
+import NotFound from './Components/Helpers/NotFound';
 
-function App() {
+// Views
+import Index from './Views/Index';
+// End Views
+
+// Components
+// End Components
+
+function App({ store }) {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <MuiThemeProvider theme={theme}>
+      <div className="App">
+        <Provider store={store}>
+          <Router>
+            <ScrollToTop>
+              <Switch>
+                <Route exact path='/' component={Index} />
+
+                <Route component={NotFound} />
+              </Switch>
+            </ScrollToTop>
+          </Router>
+        </Provider>
+      </div>
+    </MuiThemeProvider>
   );
 }
 
