@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { setAuthToken } from '../../redux/actions';
 import { Redirect } from 'react-router-dom';
-import { useGoogleLogin } from 'react-use-googlelogin'
+import { useGoogleAuth } from '../../Components/Helpers/GoogleAuthProvider'
 import Ajax from '../../Ajax';
 
 import { makeStyles } from '@material-ui/styles';
@@ -46,6 +46,7 @@ const Index = () => {
   /////////////////
 
   const dispatch = useDispatch();
+  const { isSignedIn, googleUser } = useGoogleAuth();
 
   React.useEffect(() => {
     const token = localStorage.getItem('rad_power_test_token');
@@ -55,6 +56,13 @@ const Index = () => {
       setRedirect(true);
     }
   }, []);
+
+  React.useEffect(() => {
+    if (isSignedIn) {
+      setUsername(googleUser.profileObj.name);
+      handleSubmit();
+    }
+  }, [])
 
   const handleChange = (e) => {
     setErrors([]);

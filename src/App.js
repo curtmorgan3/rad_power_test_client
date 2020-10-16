@@ -17,7 +17,6 @@ import Create from './Views/Create';
 // Components
 import Navbar from './Components/Navbar';
 // End Components
-require('dotenv').config()
 
 function App({ store }) {
   return (
