@@ -43,7 +43,7 @@ const Results = () => {
 
   // Redux Store
   const entries = useSelector(state => state.bikes.results);
-  const token = useSelector(state => state.auth.authToken);
+  const token = useSelector(state => state.auth.token);
   /////////////
 
   const [redirect, setRedirect] = React.useState(false);
@@ -78,8 +78,8 @@ const Results = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {entries.map((row) => (
-                <TableRow key={row.name} className={classes.row}>
+              {entries.map((row, i) => (
+                <TableRow key={i} className={classes.row}>
                   <TableCell component="th" scope="row">
                     {row.model}
                   </TableCell>

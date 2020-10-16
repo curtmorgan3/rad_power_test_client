@@ -61,7 +61,7 @@ const Create = () => {
   ///////////////////
 
   // Redux Store
-  const token = useSelector(state => state.auth.authToken);
+  const token = useSelector(state => state.auth.token);
   /////////////
 
   // Component State
