@@ -2,10 +2,12 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { setAuthToken } from '../../redux/actions';
 import { Redirect } from 'react-router-dom';
+import { useGoogleLogin } from 'react-use-googlelogin'
 import Ajax from '../../Ajax';
 
 import { makeStyles } from '@material-ui/styles';
 import { Typography, TextField, Button } from '@material-ui/core';
+import GoogleLogin from '../../Components/GoogleLogin';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -104,6 +106,8 @@ const Index = () => {
       )) : null}
   
       <Button className={classes.submit} onClick={handleSubmit}>Submit</Button>
+
+      <GoogleLogin />
     </div>
   )
 }
