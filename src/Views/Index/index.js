@@ -1,8 +1,7 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setAuthToken } from '../../redux/actions';
 import { Redirect } from 'react-router-dom';
-import { useGoogleAuth } from '../../Components/Helpers/GoogleAuthProvider'
 import Ajax from '../../Ajax';
 
 import { makeStyles } from '@material-ui/styles';
@@ -39,14 +38,16 @@ const Index = () => {
   const classes = useStyles();
   ///////////////////
 
+  // Redux Store
+  const storedToken = useSelector(state => state.auth.token);
+  const dispatch = useDispatch();
+  /////////////
+
   // Component State
   const [username, setUsername] = React.useState('');
   const [validationErrors, setErrors] = React.useState([]);
   const [redirect, setRedirect] = React.useState(false);
   /////////////////
-
-  const dispatch = useDispatch();
-  const { isSignedIn, googleUser } = useGoogleAuth();
 
   React.useEffect(() => {
     const token = localStorage.getItem('rad_power_test_token');
@@ -55,15 +56,11 @@ const Index = () => {
       dispatch(setAuthToken(token));
       setRedirect(true);
     }
-  }, []);
 
-  React.useEffect(() => {
-    console.log('checking if google auth');
-    if (isSignedIn) {
-      setUsername(googleUser.profileObj.name);
-      handleSubmit();
+    if (storedToken) {
+      setRedirect(true);
     }
-  }, [])
+  }, [storedToken, dispatch]);
 
   const handleChange = (e) => {
     setErrors([]);
