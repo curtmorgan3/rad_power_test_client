@@ -6,24 +6,26 @@ import { Button } from '@material-ui/core';
 import Ajax from '../Ajax';
 
 const GoogleLogin = () => {
-    const { signIn } = useGoogleAuth();
-    const dispatch = useDispatch();
+  const { signIn } = useGoogleAuth();
+  const dispatch = useDispatch();
 
-    const handleSignIn = async () => {
-      const res = await signIn();
-      
-      if (res && res.profileObj) {
-        const token = await Ajax.authenticate({ username: res.profileObj.name });
-        if (token) {
-          localStorage.setItem('rad_power_test_token', token);
-          dispatch(setAuthToken(token));
-        }
+  const handleSignIn = async () => {
+    const res = await signIn();
+    
+    if (res && res.profileObj) {
+      const token = await Ajax.authenticate({ username: res.profileObj.name });
+      if (token) {
+        localStorage.setItem('rad_power_test_token', token);
+        dispatch(setAuthToken(token));
       }
     }
+  }
 
-    return (
-        <Button onClick={handleSignIn}>Login with Google</Button>
-      );
+  return (
+    <Button onClick={handleSignIn} style={{  backgroundColor: '#C24D1C', color: '#ffffff'}}>
+      Login with Google
+    </Button>
+  );
 };
 
 export default GoogleLogin;

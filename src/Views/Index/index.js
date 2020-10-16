@@ -113,6 +113,8 @@ const Index = () => {
   
       <Button className={classes.submit} onClick={handleSubmit}>Submit</Button>
 
+      <Typography>or</Typography>
+
       <GoogleLogin />
     </div>
   )
