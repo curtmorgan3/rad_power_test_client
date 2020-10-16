@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
@@ -42,7 +43,22 @@ const Results = () => {
 
   // Redux Store
   const entries = useSelector(state => state.bikes.results);
+  const token = useSelector(state => state.auth.authToken);
   /////////////
+
+  const [redirect, setRedirect] = React.useState(false);
+
+  React.useEffect(() => {
+    if (!token) {
+      setRedirect(true);
+    }
+  }, [])
+
+  if (redirect) {
+    return (
+      <Redirect to='/' />
+    )
+  }
 
   return (
     <div className={classes.container}>

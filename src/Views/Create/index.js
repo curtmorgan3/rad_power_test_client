@@ -1,4 +1,6 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { models, generateHash, validationError } from './helpers.js';
 
 import { Typography, MenuItem, FormControl, Select, Button } from '@material-ui/core';
@@ -58,6 +60,10 @@ const Create = () => {
   const classes = useStyles();
   ///////////////////
 
+  // Redux Store
+  const token = useSelector(state => state.auth.authToken);
+  /////////////
+
   // Component State
   const [form, updateForm] = React.useState({
     model: '',
@@ -70,7 +76,14 @@ const Create = () => {
   const [currentModel, setCurrentModel] = React.useState(0);
   const [hash, setHash] = React.useState(null);
   const [alertMsg, setAlert] = React.useState('');
+  const [redirect, setRedirect] = React.useState(false);
   /////////////////
+
+  React.useEffect(() => {
+    if (!token) {
+      setRedirect(true);
+    }
+  }, [])
 
   const handleChange = (e) => {
     setAlert('');
@@ -98,6 +111,12 @@ const Create = () => {
       const hash = generateHash(form);
       setHash(hash);
     }
+  }
+
+  if (redirect) {
+    return (
+      <Redirect to='/' />
+    )
   }
 
   return (
