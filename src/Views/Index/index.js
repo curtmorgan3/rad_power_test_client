@@ -58,6 +58,7 @@ const Index = () => {
   }, []);
 
   React.useEffect(() => {
+    console.log('checking if google auth');
     if (isSignedIn) {
       setUsername(googleUser.profileObj.name);
       handleSubmit();
