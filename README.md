@@ -8,7 +8,7 @@ Client URL:
 
 Server Repo: https://github.com/curtmorgan3/rad_power_test_server
 
-Server URL: 
+Server URL: https://morgan-rad-server.herokuapp.com/
 
 ## Some Notes
 I've made some assumptions about the shape of the data. If the prompt, using this chart as the source of truth.
